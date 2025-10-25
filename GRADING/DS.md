@@ -35,28 +35,19 @@
 
 ### 2.1 SAST
 
-- **Инструмент/профиль:** TODO: semgrep?
-- **Как запускал:**
-
-  ```bash
-  semgrep --config p/ci --severity=high --error --json --output EVIDENCE/sast-YYYY-MM-DD.json
-  ```
-
-- **Отчёт:** `EVIDENCE/sast-YYYY-MM-DD.*`
-- **Выводы:** TODO: 1-2 ключевых находки (TP/FP), области риска
+* **Инструмент/профиль:** Semgrep, профиль `p/ci` (SARIF).
+* **Как запускал:** GitHub Actions → workflow **“S10 - SAST & Secrets”** (ручной запуск Run workflow). Ссылка на успешный job:
+  `https://github.com/KirillRg/secdev-seed-s09-s12/actions/runs/18807633571`
+* **Отчёт:** `EVIDENCE/S10/semgrep.sarif` *(в ходе S10 артефакт сохранён как semgrep.sarif; допускается, что SARIF пустой)*.
+* **Выводы:** Срабатываний нет (0). TP: 0, FP: 0. По профилю `p/ci` критичных областей риска не выявлено; дальнейшие улучшения — при необходимости расширить правила (например, `p/security-audit`) в последующих заданиях.
 
 ### 2.2 Secrets scanning
 
-- **Инструмент:** TODO: gitleaks?
-- **Как запускал:**
-
-  ```bash
-  gitleaks detect --no-git --report-format json --report-path EVIDENCE/secrets-YYYY-MM-DD.json
-  gitleaks detect --log-opts="--all" --report-format json --report-path EVIDENCE/secrets-YYYY-MM-DD-history.json
-  ```
-
-- **Отчёт:** `EVIDENCE/secrets-YYYY-MM-DD.*`
-- **Выводы:** TODO: есть ли истинные срабатывания; меры (ревок/ротация/очистка истории)
+* **Инструмент:** Gitleaks (JSON).
+* **Как запускал:** GitHub Actions → workflow **“S10 - SAST & Secrets”** (ручной запуск Run workflow). Ссылка на успешный job:
+  `https://github.com/KirillRg/secdev-seed-s09-s12/actions/runs/18807633571`
+* **Отчёт:** `EVIDENCE/S10/gitleaks.json` *(в результате — пустой массив `[]`, секреты не обнаружены)*.
+* **Выводы:** Истинных срабатываний нет. Меры не требуются.
 
 ---
 
